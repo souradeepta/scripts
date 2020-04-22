@@ -1,7 +1,6 @@
 #!/bin/bash -u
 # make sure you make the file executable chmod +x
 
-
 if ! [ -n "${REPL_USING_RLWRAP:-}" ]; then
   # Use `rlwrap` if available.
   if which rlwrap > /dev/null 2>&1; then
@@ -17,7 +16,12 @@ while true; do
   echo -n "$(pwd)> git "
   read command || break
 
-  git $command
+  # A command with `!` prefix executes directly via the shell, not `git`.
+  if [ "${command:0:1}" = '!' ]; then
+    ${command:1}
+  else
+    git $command
+  fi
 done
 
 # Add a blank line at the end for a clean prompt when exiting.
