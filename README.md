@@ -3,6 +3,8 @@
 Scripts to make your life easy
 
 ### Git REPL
+
+Create a REPL environment for git
 ````
 git-repl.sh
 ````
